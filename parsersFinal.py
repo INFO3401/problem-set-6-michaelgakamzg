@@ -1,4 +1,6 @@
 ################################################################################
+# Worked with Brandon and Aaron
+
 # PART #1
 ################################################################################
 import csv
@@ -47,10 +49,10 @@ def generateSimpleCSV(targetfile, wordCounts):
         
         writer = csv.writer(my_file)
         writer.writerow(['Word','Count'])
-        for key, value in bush1991.items():
+        for key, value in bush1989.items():
             writer.writerow([key,value])
 
-generateSimpleCSV('1991.csv' , bush1989)
+generateSimpleCSV('1989.csv' , bush1989)
 
 
 #Pring the Headers
@@ -66,22 +68,16 @@ generateSimpleCSV('1991.csv' , bush1989)
 
 #Part 3
 ################################################################################
-def countWordsMany(dictionary):
-    dictionary = {}
-    files = glob.glob(os.path.join(dictionary, '*.txt'))
-    for fle in files:
-        dictionary[fle] = countWordsUnsctured(fle)
-    return (dictionary)
+
+def countWordsMany(directory):
+	dictionary = {}
+	files = glob.glob(os.path.join(directory, '*.txt'))
+	for fle in files:
+		dictionary[fle] = countWordsUnstructured(fle)
+	return (dictionary)
 
 directoryCount = countWordsMany("./state-of-the-union-corpus-1989-2017")
 
-
-
-# Open directory and pull a list of file names
-#Populate the dictornary
-# Call countWordsUnstructured to get the word counts for that file
-#Place the word count dictionary into the empty dictionarry
-#returm the dictionary
 
 #Part 4
 
@@ -89,7 +85,7 @@ def generateDirectoryCSV(wordCounts, targetfile):
     with open ('new.csv', 'w') as new_file:
         writer = csv.writer(new_file)
         writer.writerow(['Filename','Word', 'Count'])
-        for k, v in dictionaryCount.items():
+        for k, v in directoryCount.items():
             for key, value in v.items():
                 writer.writerow([k,key, value])
 
@@ -102,6 +98,6 @@ def generateJSONFile(wordCounts, targetfile):
     with open('result.json', 'w') as fp:
         json.dump(directoryCount, fp)
 
-generateJSONFILE(directoryCount, 'result.json')
+generateJSONFile(directoryCount, 'result.json')
 
 
